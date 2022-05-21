@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Hyva\Theme\Model\ViewModelRegistry;
-use Hyva\Theme\ViewModel\ProductPage;
 use Hyva\Theme\ViewModel\CurrentProduct;
 use Hyva\Theme\ViewModel\HeroiconsSolid;
 use Magento\Catalog\Block\Product\View;
@@ -14,9 +13,6 @@ use Siteation\Share\ViewModel\Share as ShareProduct;
 /** @var View $block */
 /** @var Escaper $escaper */
 /** @var ViewModelRegistry $viewModels */
-
-/** @var ProductPage $productViewModel */
-$productViewModel = $viewModels->require(ProductPage::class);
 
 /** @var CurrentProduct $currentProduct */
 $currentProduct = $viewModels->require(CurrentProduct::class);
@@ -58,7 +54,7 @@ if (!$shareViewModel->canShare()) {
         const activeMessage = 3000;
         const shareData = {
             title: '<?= $product->getName(); ?>',
-            text: '<?= $product->getName(); ?> - <?= $productViewModel->getShortDescription(); ?>',
+            text: '<?= $product->getName(); ?>',
             url: '<?= $product->getProductUrl(); ?>'
         };
 
