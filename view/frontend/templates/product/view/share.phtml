@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\ProductPage;
 use Hyva\Theme\ViewModel\CurrentProduct;
 use Hyva\Theme\ViewModel\HeroiconsSolid;
 use Magento\Catalog\Block\Product\View;
@@ -13,6 +14,9 @@ use Siteation\Share\ViewModel\Share as ShareProduct;
 /** @var View $block */
 /** @var Escaper $escaper */
 /** @var ViewModelRegistry $viewModels */
+
+/** @var ProductPage $productViewModel */
+$productViewModel = $viewModels->require(ProductPage::class);
 
 /** @var CurrentProduct $currentProduct */
 $currentProduct = $viewModels->require(CurrentProduct::class);
@@ -30,7 +34,12 @@ $product = $currentProduct->exists() ? $currentProduct->get() : false;
 if (!$product) {
     return '';
 }
+
+if (!$shareViewModel->canShare()) {
+    return '';
+}
 ?>
+
 <button
     id="share-product"
     type="button"
@@ -41,37 +50,56 @@ if (!$product) {
     <span class="sr-only"><?= $escaper->escapeHtmlAttr(__('Share Product')) ?></span>
 </button>
 
-<pre><?= var_dump($shareViewModel->getShortDescription($product)); ?></pre>
 <script>
-    // TODO: instead of changing the icon, show a message that the url is added to the clipboard
     (() => {
         const shareButton = document.getElementById('share-product');
-        const shareCopyIcon = `<?= $heroicons->paperClipHtml('', 20, 20); ?>`;
+        const activeClasses = ['bg-gray-200', 'text-gray-500', 'hover:text-blue-600'];
+        const inActiveClasses = ['bg-gray-100', 'text-gray-300', 'cursor-not-allowed'];
+        const activeMessage = 3000;
         const shareData = {
             title: '<?= $product->getName(); ?>',
-            text: 'lorum ipsum',
+            text: '<?= $product->getName(); ?> - <?= $productViewModel->getShortDescription(); ?>',
             url: '<?= $product->getProductUrl(); ?>'
         };
-        // TODO: $product->getShortDescription()
 
-        // activate button if js
-        shareButton.removeAttribute('disabled');
-        shareButton.classList.remove('bg-gray-100', 'text-gray-300', 'cursor-not-allowed');
-        shareButton.classList.add('bg-gray-200', 'text-gray-500', 'hover:text-blue-600');
+        const activeBtn = () => {
+            shareButton.removeAttribute('disabled');
+            shareButton.classList.remove(...inActiveClasses);
+            shareButton.classList.add(...activeClasses);
+        };
+
+        const disableBtn = () => {
+            shareButton.setAttribute('disabled', '');
+            shareButton.classList.add(...inActiveClasses);
+            shareButton.classList.remove(...activeClasses);
+        };
+
+        const copyToClipboard = () => {
+            navigator.clipboard.writeText(shareData.url);
+            dispatchMessages([
+                {
+                    type: "success",
+                    text: "<?= $escaper->escapeHtmlAttr(__('Success, Link copied to clipboard:')) ?> " + shareData.url
+                }
+            ], activeMessage);
+            disableBtn();
+            setTimeout(() => activeBtn(), activeMessage);
+        }
+
+        activeBtn();
 
         shareButton.addEventListener('click', async () => {
             if (navigator.canShare) {
                 try {
                     await navigator.share(shareData);
                 } catch (err) {
-                    navigator.clipboard.writeText(shareData.url);
-                    shareButton.innerHTML = shareCopyIcon;
-                    console.warn('Error: ' + err);
+                    console.warn(err);
                 }
-            } else {
-                navigator.clipboard.writeText(shareData.url);
-                shareButton.innerHTML = shareCopyIcon;
+                return;
             }
+
+            copyToClipboard();
+            return;
         });
     })();
 </script>

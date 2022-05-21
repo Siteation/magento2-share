@@ -3,7 +3,7 @@
     xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="product.info.additional.actions">
-            <block name="product.info.share" template="Siteation_Share::share.phtml"/>
+            <block name="product.info.share" template="Siteation_Share::product/view/share.phtml"/>
         </referenceContainer>
     </body>
 </page>
