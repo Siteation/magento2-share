@@ -1,6 +1,6 @@
 {
   "name": "siteation/magento2-module-share",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "type": "magento2-module",
   "description": "Share products with ease",
@@ -9,7 +9,7 @@
     "magento2",
     "magento2-module",
     "magento2-hyva",
-    "shareapi",
+    "share-api",
     "social-share"
   ],
   "authors": [
@@ -20,7 +20,8 @@
     }
   ],
   "require": {
-    "magento/framework": "^102.0|^103.0"
+    "magento/framework": "^102.0|^103.0",
+    "hyva-themes/magento2-theme-module": "*"
   },
   "autoload": {
     "files": [
