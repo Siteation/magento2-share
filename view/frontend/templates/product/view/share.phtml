@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 use Hyva\Theme\Model\ViewModelRegistry;
 use Hyva\Theme\ViewModel\CurrentProduct;
@@ -27,11 +25,7 @@ $heroicons = $viewModels->require(HeroiconsSolid::class);
 /** @var Product $product */
 $product = $currentProduct->exists() ? $currentProduct->get() : false;
 
-if (!$product) {
-    return '';
-}
-
-if (!$shareViewModel->canShare()) {
+if (!$product || !$shareViewModel->canShare()) {
     return '';
 }
 ?>
