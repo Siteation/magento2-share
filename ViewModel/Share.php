@@ -28,6 +28,6 @@ class Share implements ArgumentInterface
      */
     public function canShare(): bool
     {
-        return (bool) $this->storeConfig->getStoreConfig('sendfriend/email/enabled');
+        return (bool) $this->storeConfig->getStoreConfig('siteation_share/share/enabled');
     }
 }
