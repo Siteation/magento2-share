@@ -1,0 +1,33 @@
+{
+  "name": "siteation/magento2-module-share",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "magento2-module",
+  "description": "Share products with ease",
+  "readme": "README.md",
+  "keywords": [
+    "magento2",
+    "magento2-module",
+    "magento2-hyva",
+    "shareapi",
+    "social-share"
+  ],
+  "authors": [
+    {
+      "name": "Siteation",
+      "email": "info@siteation.dev",
+      "homepage": "https://siteation.dev/"
+    }
+  ],
+  "require": {
+    "magento/framework": "^102.0|^103.0"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Siteation\\Share\\": ""
+    }
+  }
+}

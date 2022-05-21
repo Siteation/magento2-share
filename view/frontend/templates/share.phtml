@@ -1,0 +1,77 @@
+<?php
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\CurrentProduct;
+use Hyva\Theme\ViewModel\HeroiconsSolid;
+use Magento\Catalog\Block\Product\View;
+use Magento\Catalog\Model\Product;
+use Magento\Framework\Escaper;
+use Siteation\Share\ViewModel\Share as ShareProduct;
+
+/** @var View $block */
+/** @var Escaper $escaper */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var CurrentProduct $currentProduct */
+$currentProduct = $viewModels->require(CurrentProduct::class);
+
+/** @var ShareProduct $shareViewModel */
+$shareViewModel = $viewModels->require(ShareProduct::class);
+
+// TODO: swap with outline when PR (https://gitlab.hyva.io/hyva-themes/magento2-default-theme/-/merge_requests/431) is merged
+/** @var HeroiconsSolid $heroicons */
+$heroicons = $viewModels->require(HeroiconsSolid::class);
+
+/** @var Product $product */
+$product = $currentProduct->exists() ? $currentProduct->get() : false;
+
+if (!$product) {
+    return '';
+}
+?>
+<button
+    id="share-product"
+    type="button"
+    disabled
+    class="inline-flex items-center justify-center rounded-full w-10 h-10 ml-2 cursor-not-allowed bg-gray-100 text-gray-300"
+>
+    <?= $heroicons->shareHtml('', 20, 20) ?>
+    <span class="sr-only"><?= $escaper->escapeHtmlAttr(__('Share Product')) ?></span>
+</button>
+
+<pre><?= var_dump($shareViewModel->getShortDescription($product)); ?></pre>
+<script>
+    // TODO: instead of changing the icon, show a message that the url is added to the clipboard
+    (() => {
+        const shareButton = document.getElementById('share-product');
+        const shareCopyIcon = `<?= $heroicons->paperClipHtml('', 20, 20); ?>`;
+        const shareData = {
+            title: '<?= $product->getName(); ?>',
+            text: 'lorum ipsum',
+            url: '<?= $product->getProductUrl(); ?>'
+        };
+        // TODO: $product->getShortDescription()
+
+        // activate button if js
+        shareButton.removeAttribute('disabled');
+        shareButton.classList.remove('bg-gray-100', 'text-gray-300', 'cursor-not-allowed');
+        shareButton.classList.add('bg-gray-200', 'text-gray-500', 'hover:text-blue-600');
+
+        shareButton.addEventListener('click', async () => {
+            if (navigator.canShare) {
+                try {
+                    await navigator.share(shareData);
+                } catch (err) {
+                    navigator.clipboard.writeText(shareData.url);
+                    shareButton.innerHTML = shareCopyIcon;
+                    console.warn('Error: ' + err);
+                }
+            } else {
+                navigator.clipboard.writeText(shareData.url);
+                shareButton.innerHTML = shareCopyIcon;
+            }
+        });
+    })();
+</script>
