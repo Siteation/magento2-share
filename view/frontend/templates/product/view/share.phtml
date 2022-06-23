@@ -2,7 +2,7 @@
 
 use Hyva\Theme\Model\ViewModelRegistry;
 use Hyva\Theme\ViewModel\CurrentProduct;
-use Hyva\Theme\ViewModel\HeroiconsSolid;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
 use Magento\Catalog\Block\Product\View;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Escaper;
@@ -18,9 +18,8 @@ $currentProduct = $viewModels->require(CurrentProduct::class);
 /** @var ShareProduct $shareViewModel */
 $shareViewModel = $viewModels->require(ShareProduct::class);
 
-// TODO: swap with outline when PR (https://gitlab.hyva.io/hyva-themes/magento2-default-theme/-/merge_requests/431) is merged
-/** @var HeroiconsSolid $heroicons */
-$heroicons = $viewModels->require(HeroiconsSolid::class);
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
 
 /** @var Product $product */
 $product = $currentProduct->exists() ? $currentProduct->get() : false;
@@ -35,6 +34,7 @@ if (!$product || !$shareViewModel->canShare()) {
     type="button"
     disabled
     class="inline-flex items-center justify-center rounded-full w-10 h-10 ml-2 cursor-not-allowed bg-gray-100 text-gray-300"
+    title="<?= $escaper->escapeHtmlAttr(__('Share Product')) ?>"
 >
     <?= $heroicons->shareHtml('', 20, 20) ?>
     <span class="sr-only"><?= $escaper->escapeHtmlAttr(__('Share Product')) ?></span>
