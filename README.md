@@ -17,9 +17,7 @@ composer require siteation/magento2-module-share
 bin/magento setup:upgrade
 ```
 
-> **Note**
-> 
-> This Module requires Magento 2.4 or higher and Hyvä Theme!
+> **Note** This Module requires Magento 2.4 or higher and Hyvä Theme!
 > For more requirements see the `composer.json`.
 
 ## How to use
