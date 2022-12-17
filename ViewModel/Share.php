@@ -1,9 +1,15 @@
 <?php declare(strict_types=1);
 
+/**
+ * @author Siteation (https://siteation.dev/)
+ * @copyright Copyright 2022 Siteation (https://siteation.dev/)
+ * @license MIT
+ */
+
 namespace Siteation\Share\ViewModel;
 
-use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Hyva\Theme\ViewModel\StoreConfig;
+use Magento\Framework\View\Element\Block\ArgumentInterface;
 
 class Share implements ArgumentInterface
 {

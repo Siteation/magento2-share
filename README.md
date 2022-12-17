@@ -1,4 +1,4 @@
-# Siteation - Magento 2 Module Share
+# Siteation - Magento 2 module Share
 
 [![Packagist Version](https://img.shields.io/packagist/v/siteation/magento2-module-share?style=for-the-badge)](https://packagist.org/packages/siteation/magento2-module-share)
 ![Supported Magento Versions](https://img.shields.io/badge/magento-%202.4-brightgreen.svg?logo=magento&longCache=true&style=for-the-badge)
@@ -13,7 +13,7 @@ using the Share API with an fallback to the Clipboard API for unsupported browse
 Install the package via;
 
 ```bash
-composer require siteation/magento2-module-share
+composer require siteation/magento2-share
 bin/magento setup:upgrade
 ```
 
