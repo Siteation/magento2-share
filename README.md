@@ -1,9 +1,9 @@
-# Siteation - Magento 2 module Share
+# Siteation - Magento 2 Share
 
 [![Packagist Version](https://img.shields.io/packagist/v/siteation/magento2-share?style=for-the-badge)](https://packagist.org/packages/siteation/magento2-share)
 ![Supported Magento Versions](https://img.shields.io/badge/magento-%202.4-brightgreen.svg?logo=magento&longCache=true&style=for-the-badge)
 [![Hyvä Themes Module](https://img.shields.io/badge/Hyva_Themes-Module-3df0af.svg?longCache=true&style=for-the-badge)](https://hyva.io/)
-![License](https://img.shields.io/github/license/siteation/magento2-module-share?color=%23234&style=for-the-badge)
+![License](https://img.shields.io/github/license/siteation/magento2-share?color=%23234&style=for-the-badge)
 
 This Magento 2 module adds the option to share you product,
 using the Share API with an fallback to the Clipboard API for unsupported browsers.
