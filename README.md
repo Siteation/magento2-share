@@ -1,6 +1,6 @@
 # Siteation - Magento 2 module Share
 
-[![Packagist Version](https://img.shields.io/packagist/v/siteation/magento2-module-share?style=for-the-badge)](https://packagist.org/packages/siteation/magento2-module-share)
+[![Packagist Version](https://img.shields.io/packagist/v/siteation/magento2-share?style=for-the-badge)](https://packagist.org/packages/siteation/magento2-share)
 ![Supported Magento Versions](https://img.shields.io/badge/magento-%202.4-brightgreen.svg?logo=magento&longCache=true&style=for-the-badge)
 [![Hyvä Themes Module](https://img.shields.io/badge/Hyva_Themes-Module-3df0af.svg?longCache=true&style=for-the-badge)](https://hyva.io/)
 ![License](https://img.shields.io/github/license/siteation/magento2-module-share?color=%23234&style=for-the-badge)
